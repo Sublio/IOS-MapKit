@@ -14,6 +14,8 @@
 		8DBEC28F1CDDD01200211B1A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8DBEC28E1CDDD01200211B1A /* Images.xcassets */; };
 		8DBEC2921CDDD01200211B1A /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8DBEC2901CDDD01200211B1A /* LaunchScreen.xib */; };
 		8DBEC29E1CDDD01200211B1A /* MapTestTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 8DBEC29D1CDDD01200211B1A /* MapTestTests.m */; };
+		8DBEC2A81CDDD16F00211B1A /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8DBEC2A71CDDD16F00211B1A /* MapKit.framework */; };
+		8DBEC2AA1CDDD1FC00211B1A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8DBEC2A91CDDD1FC00211B1A /* Foundation.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -40,6 +42,8 @@
 		8DBEC2971CDDD01200211B1A /* MapTestTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MapTestTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		8DBEC29C1CDDD01200211B1A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8DBEC29D1CDDD01200211B1A /* MapTestTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MapTestTests.m; sourceTree = "<group>"; };
+		8DBEC2A71CDDD16F00211B1A /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
+		8DBEC2A91CDDD1FC00211B1A /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -47,6 +51,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8DBEC2AA1CDDD1FC00211B1A /* Foundation.framework in Frameworks */,
+				8DBEC2A81CDDD16F00211B1A /* MapKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -63,6 +69,8 @@
 		8DBEC2751CDDD01100211B1A = {
 			isa = PBXGroup;
 			children = (
+				8DBEC2A91CDDD1FC00211B1A /* Foundation.framework */,
+				8DBEC2A71CDDD16F00211B1A /* MapKit.framework */,
 				8DBEC2801CDDD01100211B1A /* MapTest */,
 				8DBEC29A1CDDD01200211B1A /* MapTestTests */,
 				8DBEC27F1CDDD01100211B1A /* Products */,
