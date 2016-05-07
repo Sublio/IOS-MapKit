@@ -16,6 +16,7 @@
 		8DBEC29E1CDDD01200211B1A /* MapTestTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 8DBEC29D1CDDD01200211B1A /* MapTestTests.m */; };
 		8DBEC2A81CDDD16F00211B1A /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8DBEC2A71CDDD16F00211B1A /* MapKit.framework */; };
 		8DBEC2AA1CDDD1FC00211B1A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8DBEC2A91CDDD1FC00211B1A /* Foundation.framework */; };
+		8DBEC2AD1CDDE59400211B1A /* DMMapAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 8DBEC2AC1CDDE59400211B1A /* DMMapAnnotation.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -44,6 +45,8 @@
 		8DBEC29D1CDDD01200211B1A /* MapTestTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MapTestTests.m; sourceTree = "<group>"; };
 		8DBEC2A71CDDD16F00211B1A /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		8DBEC2A91CDDD1FC00211B1A /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		8DBEC2AB1CDDE59400211B1A /* DMMapAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DMMapAnnotation.h; sourceTree = "<group>"; };
+		8DBEC2AC1CDDE59400211B1A /* DMMapAnnotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DMMapAnnotation.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -93,6 +96,8 @@
 				8DBEC2861CDDD01100211B1A /* AppDelegate.m */,
 				8DBEC2881CDDD01100211B1A /* ViewController.h */,
 				8DBEC2891CDDD01100211B1A /* ViewController.m */,
+				8DBEC2AB1CDDE59400211B1A /* DMMapAnnotation.h */,
+				8DBEC2AC1CDDE59400211B1A /* DMMapAnnotation.m */,
 				8DBEC28B1CDDD01200211B1A /* Main.storyboard */,
 				8DBEC28E1CDDD01200211B1A /* Images.xcassets */,
 				8DBEC2901CDDD01200211B1A /* LaunchScreen.xib */,
@@ -229,6 +234,7 @@
 			files = (
 				8DBEC28A1CDDD01100211B1A /* ViewController.m in Sources */,
 				8DBEC2871CDDD01100211B1A /* AppDelegate.m in Sources */,
+				8DBEC2AD1CDDE59400211B1A /* DMMapAnnotation.m in Sources */,
 				8DBEC2841CDDD01100211B1A /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

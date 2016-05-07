@@ -8,6 +8,7 @@
 
 #import "ViewController.h"
 #import <MapKit/MapKit.h>
+#import "DMMapAnnotation.h"
 
 @interface ViewController () <MKMapViewDelegate>
 
@@ -17,7 +18,12 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view, typically from a nib.
+    
+    UIBarButtonItem* addButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(actionAdd:)];
+    UIBarButtonItem* zoomButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSearch
+                                                                                  target:self action:@selector(actionShowAll:)];
+    
+    self.navigationItem.rightBarButtonItems = @[zoomButton,addButton];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -26,6 +32,47 @@
 }
 
 
+#pragma  mark - Action
+
+
+-(void) actionAdd:(UIBarButtonItem*) sender {
+    
+    DMMapAnnotation* annotation = [[DMMapAnnotation alloc]init];
+    annotation.title = @"Test Title";
+    annotation.subtitle = @"Test Subtitle";
+    annotation.coordinate = self.mapView.region.center;
+    
+    [self.mapView addAnnotation:annotation];
+    
+}
+
+-(void) actionShowAll:(UIBarButtonItem*)sender {
+    
+    MKMapRect zoomRect = MKMapRectNull;
+    
+    for (id <MKAnnotation> annotation in self.mapView.annotations){
+        
+        CLLocationCoordinate2D location = annotation.coordinate;
+        
+        MKMapPoint center = MKMapPointForCoordinate(location);
+        
+        static double delta = 20000;
+        
+        
+        MKMapRect rect = MKMapRectMake(center.x - delta, center.y - delta, delta *2 , delta *2);
+        
+        
+        zoomRect = MKMapRectUnion(zoomRect, rect);
+        
+        
+    }
+    
+    zoomRect = [self.mapView mapRectThatFits:zoomRect];
+    
+    [self.mapView setVisibleMapRect:zoomRect edgePadding:UIEdgeInsetsMake(50, 50, 50, 50) animated:YES];
+    
+}
+/*
 #pragma  mark - MapViewDelegate
 
 - (void)mapView:(MKMapView *)mapView regionWillChangeAnimated:(BOOL)animated{
@@ -63,6 +110,36 @@
     
     NSLog(@"mapViewDidFinishRenderingMap");
     
-};
+};*/
+
+- (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id <MKAnnotation>)annotation{
+    
+    if ([annotation isKindOfClass:[MKUserLocation class]]){
+        return nil;
+    }
+    
+    static NSString* identifier = @"Annotation";
+    MKPinAnnotationView* pin = (MKPinAnnotationView*)[mapView dequeueReusableAnnotationViewWithIdentifier:identifier];
+    
+    if (!pin){
+        
+        pin = [[MKPinAnnotationView alloc]initWithAnnotation:annotation reuseIdentifier:identifier];
+        pin.pinColor = MKPinAnnotationColorPurple;
+        pin.animatesDrop = YES;
+        pin.canShowCallout = YES;
+        pin.draggable = YES;
+    }else{
+        
+        pin.annotation = annotation;
+    }
+    
+    return pin;
+}
+
+- (void)mapView:(MKMapView *)mapView annotationView:(MKAnnotationView *)view didChangeDragState:(MKAnnotationViewDragState)newState
+   fromOldState:(MKAnnotationViewDragState)oldState {
+    
+    
+}
 
 @end
