@@ -9,16 +9,13 @@
 #import "ViewController.h"
 #import <MapKit/MapKit.h>
 #import "DMMapAnnotation.h"
+#import "UIView+MKAnnotationView.h"
 
 
-
-
-
-@interface UIView(MKAnnotationView*)
-
-@end
 
 @interface ViewController () <MKMapViewDelegate>
+
+@property (strong, nonatomic) CLGeocoder* geoCoder;
 
 @end
 
@@ -32,12 +29,25 @@
                                                                                   target:self action:@selector(actionShowAll:)];
     
     self.navigationItem.rightBarButtonItems = @[zoomButton,addButton];
+    
+    self.geoCoder = [[CLGeocoder alloc]init];
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
+- (void) dealloc {
+    
+    if ([self.geoCoder isGeocoding]){
+        
+        
+        [self.geoCoder cancelGeocode];
+    }
+}
+
+
 
 
 #pragma  mark - Action
@@ -144,6 +154,14 @@
         pin.rightCalloutAccessoryView = descriptionButton;
         
         
+        
+        UIButton* directionButton = [UIButton buttonWithType:UIButtonTypeContactAdd];
+        
+        [directionButton addTarget:self action:@selector(actionDirection:) forControlEvents:UIControlEventTouchUpInside];
+        pin.rightCalloutAccessoryView = directionButton;
+        
+        
+        
     }else{
         
         pin.annotation = annotation;
@@ -157,12 +175,81 @@
 
 - (void) actionDescritpion:(UIButton*) sender {
     
-    NSLog(@"actionDescription");
+    MKAnnotationView* annotationView = [sender superAnnotationView];
+    
+    if (!annotationView) {
+        
+        return;
+    }
+    
+    
+    CLLocationCoordinate2D coordinate = annotationView.annotation.coordinate;
+    
+    
+    CLLocation* location = [[CLLocation alloc]initWithLatitude:coordinate.latitude longitude:coordinate.longitude];
+    
+    if ([self.geoCoder isGeocoding]){
+        
+        
+        [self.geoCoder cancelGeocode];
+    }
+    
+    
+    
+    
+    [self.geoCoder reverseGeocodeLocation:location completionHandler:^(NSArray *placemarks, NSError *error) {
+       
+        NSString* message = nil;
+        
+        
+        if (error){
+            
+            message = [error localizedDescription];
+        }else{
+            
+            if ([placemarks count]>0){
+                
+                
+                MKPlacemark* placeMark = [placemarks firstObject];
+                
+                message = [placeMark.addressDictionary description];
+                
+                
+            }else{
+                
+                message= @"No placemarks";
+                
+            }
+        }
+        
+        [[[UIAlertView alloc]initWithTitle:@"Location" message:message delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
+        
+        
+    }];
 }
 
 - (void)mapView:(MKMapView *)mapView annotationView:(MKAnnotationView *)view didChangeDragState:(MKAnnotationViewDragState)newState
    fromOldState:(MKAnnotationViewDragState)oldState {
     
+    
+}
+
+
+-(void) actionDirection:(UIButton*) sender {
+    
+    
+    MKAnnotationView* annotationView = [sender superAnnotationView];
+    
+    if (!annotationView) {
+        
+        return;
+    }
+    
+    
+    CLLocationCoordinate2D coordinate = annotationView.annotation.coordinate;
+    
+    
+    CLLocation* location = [[CLLocation alloc]initWithLatitude:coordinate.latitude longitude:coordinate.longitude];
     
 }
 
