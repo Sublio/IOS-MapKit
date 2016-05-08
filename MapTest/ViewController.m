@@ -16,6 +16,7 @@
 @interface ViewController () <MKMapViewDelegate>
 
 @property (strong, nonatomic) CLGeocoder* geoCoder;
+@property (strong, nonatomic) MKDirections* directions;
 
 @end
 
@@ -45,6 +46,31 @@
         
         [self.geoCoder cancelGeocode];
     }
+    
+    if ([self.directions isCalculating]){
+        
+        [self.directions cancel];
+    }
+}
+
+
+-(MKOverlayRenderer *) mapView:(MKMapView *)mapView rendererForOverlay:(id<MKOverlay>)overlay{
+    
+    if ([overlay isKindOfClass:[MKPolyline class]]){
+        
+        
+        MKPolylineRenderer* renderer = [[MKPolylineRenderer alloc] initWithOverlay:overlay];
+        
+        
+        renderer.lineWidth = 2.f;
+        renderer.strokeColor = [UIColor colorWithRed:0.f green:0.5f blue:1.f alpha:0.9f];
+        return  renderer;
+        
+    }
+    
+    
+    
+    return  nil;
 }
 
 
@@ -158,7 +184,7 @@
         UIButton* directionButton = [UIButton buttonWithType:UIButtonTypeContactAdd];
         
         [directionButton addTarget:self action:@selector(actionDirection:) forControlEvents:UIControlEventTouchUpInside];
-        pin.rightCalloutAccessoryView = directionButton;
+        pin.leftCalloutAccessoryView = directionButton;
         
         
         
@@ -168,7 +194,18 @@
     }
     
     return pin;
+    
+    
 }
+
+
+- (void) showAlertWithTitle:(NSString*) title andMessage: (NSString*) message{
+    
+    
+    [[[UIAlertView alloc]initWithTitle:title message:message delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
+}
+
+
 
 #pragma  mark - Actions
 
@@ -222,7 +259,9 @@
             }
         }
         
-        [[[UIAlertView alloc]initWithTitle:@"Location" message:message delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
+        [self showAlertWithTitle:@"Location" andMessage:message];
+        
+        //[[[UIAlertView alloc]initWithTitle:@"Location" message:message delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
         
         
     }];
@@ -246,11 +285,71 @@
     }
     
     
+    if ([self.directions isCalculating]){
+        
+        [self.directions cancel];
+    }
+    
+    
     CLLocationCoordinate2D coordinate = annotationView.annotation.coordinate;
     
+    MKDirectionsRequest* request = [[MKDirectionsRequest alloc]init];
+
     
-    CLLocation* location = [[CLLocation alloc]initWithLatitude:coordinate.latitude longitude:coordinate.longitude];
+    request.source = [MKMapItem mapItemForCurrentLocation];
+    
+    MKPlacemark* placemark = [[MKPlacemark alloc]initWithCoordinate:coordinate addressDictionary:nil];
+    
+    MKMapItem* destination = [[MKMapItem alloc] initWithPlacemark:placemark];
+    
+    
+    request.destination = destination;
+    request.transportType = MKDirectionsTransportTypeAutomobile;
+    request.requestsAlternateRoutes = YES;
+    
+    self.directions = [[MKDirections alloc]initWithRequest:request];
+    
+   
+    
+    MKDirections* direction = [[MKDirections alloc] initWithRequest:request];
+    
+    [direction calculateDirectionsWithCompletionHandler:^(MKDirectionsResponse *response, NSError *error) {
+        
+        
+        if (error){
+            
+            [self showAlertWithTitle:@"Error" andMessage:[error localizedDescription]];
+        }else if ([response.routes count]==0){
+            
+            [self showAlertWithTitle:@"Error" andMessage:@"No routes found"];
+            
+        }else{
+            
+            
+            [self.mapView removeOverlays:[self.mapView overlays]];
+            
+            
+            NSMutableArray* array =  [NSMutableArray array];
+            
+            for (MKRoute* route in response.routes){
+                
+                [array addObject:route.polyline];
+            }
+            
+            [self.mapView addOverlays:array level:MKOverlayLevelAboveRoads];
+            
+        }
+            
+            
+        
+        
+        
+    }];
     
 }
+
+
+
+
 
 @end
