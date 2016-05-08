@@ -7,7 +7,7 @@
 //
 
 #import "UIView+MKAnnotationView.h"
-#import <MapKit/MapKit.h>
+#import <MapKit/MKAnnotation.h>
 
 @implementation UIView (MKAnnotationView)
 
