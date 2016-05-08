@@ -10,6 +10,14 @@
 #import <MapKit/MapKit.h>
 #import "DMMapAnnotation.h"
 
+
+
+
+
+@interface UIView(MKAnnotationView*)
+
+@end
+
 @interface ViewController () <MKMapViewDelegate>
 
 @end
@@ -128,12 +136,28 @@
         pin.animatesDrop = YES;
         pin.canShowCallout = YES;
         pin.draggable = YES;
+        
+        UIButton* descriptionButton = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
+        
+        [descriptionButton addTarget:self action:@selector(actionDescritpion:) forControlEvents:UIControlEventTouchUpInside];
+        
+        pin.rightCalloutAccessoryView = descriptionButton;
+        
+        
     }else{
         
         pin.annotation = annotation;
     }
     
     return pin;
+}
+
+#pragma  mark - Actions
+
+
+- (void) actionDescritpion:(UIButton*) sender {
+    
+    NSLog(@"actionDescription");
 }
 
 - (void)mapView:(MKMapView *)mapView annotationView:(MKAnnotationView *)view didChangeDragState:(MKAnnotationViewDragState)newState

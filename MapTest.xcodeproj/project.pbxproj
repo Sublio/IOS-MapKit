@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8DAADC8E1CDF419800F5F969 /* UIView+MKAnnotationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8DAADC8D1CDF419800F5F969 /* UIView+MKAnnotationView.m */; };
 		8DBEC2841CDDD01100211B1A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 8DBEC2831CDDD01100211B1A /* main.m */; };
 		8DBEC2871CDDD01100211B1A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 8DBEC2861CDDD01100211B1A /* AppDelegate.m */; };
 		8DBEC28A1CDDD01100211B1A /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8DBEC2891CDDD01100211B1A /* ViewController.m */; };
@@ -30,6 +31,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		8DAADC8C1CDF419800F5F969 /* UIView+MKAnnotationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+MKAnnotationView.h"; sourceTree = "<group>"; };
+		8DAADC8D1CDF419800F5F969 /* UIView+MKAnnotationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+MKAnnotationView.m"; sourceTree = "<group>"; };
 		8DBEC27E1CDDD01100211B1A /* MapTest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MapTest.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8DBEC2821CDDD01100211B1A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8DBEC2831CDDD01100211B1A /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -102,6 +105,8 @@
 				8DBEC28E1CDDD01200211B1A /* Images.xcassets */,
 				8DBEC2901CDDD01200211B1A /* LaunchScreen.xib */,
 				8DBEC2811CDDD01100211B1A /* Supporting Files */,
+				8DAADC8C1CDF419800F5F969 /* UIView+MKAnnotationView.h */,
+				8DAADC8D1CDF419800F5F969 /* UIView+MKAnnotationView.m */,
 			);
 			path = MapTest;
 			sourceTree = "<group>";
@@ -234,6 +239,7 @@
 			files = (
 				8DBEC28A1CDDD01100211B1A /* ViewController.m in Sources */,
 				8DBEC2871CDDD01100211B1A /* AppDelegate.m in Sources */,
+				8DAADC8E1CDF419800F5F969 /* UIView+MKAnnotationView.m in Sources */,
 				8DBEC2AD1CDDE59400211B1A /* DMMapAnnotation.m in Sources */,
 				8DBEC2841CDDD01100211B1A /* main.m in Sources */,
 			);
@@ -428,6 +434,7 @@
 				8DBEC2A31CDDD01200211B1A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		8DBEC2A41CDDD01200211B1A /* Build configuration list for PBXNativeTarget "MapTestTests" */ = {
 			isa = XCConfigurationList;
@@ -436,6 +443,7 @@
 				8DBEC2A61CDDD01200211B1A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
